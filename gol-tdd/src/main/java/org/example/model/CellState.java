@@ -1,5 +1,9 @@
 package org.example.model;
 
-public class CellState {
+public enum CellState {
 
+    ALIVE,
+
+
+    DEAD
 }
