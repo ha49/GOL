@@ -52,20 +52,19 @@ class ActualBoardTest {
 
 
     @Test
-    void UserInitiatedCellStatesShouldBeReflectedOnNewBoardInstance() {
-
-        Board newBoard = board.createBoard();
-
-        newBoard.setCellState(0, 0, CellState.ALIVE);
-        newBoard.setCellState(1, 1, CellState.ALIVE);
-        newBoard.setCellState(2, 2, CellState.ALIVE);
-        newBoard.setCellState(3, 3, CellState.ALIVE);
+    void UserInitiatedCellStatesShouldBeReflectedOnBoard() {
 
 
-        assertEquals(CellState.ALIVE, newBoard.getCellState(0, 0));
-        assertEquals(CellState.ALIVE, newBoard.getCellState(1, 1));
-        assertEquals(CellState.ALIVE, newBoard.getCellState(2, 2));
-        assertEquals(CellState.ALIVE, newBoard.getCellState(3, 3));
+        board.setCellState(0, 0, CellState.ALIVE);
+        board.setCellState(1, 1, CellState.ALIVE);
+        board.setCellState(2, 2, CellState.ALIVE);
+        board.setCellState(3, 3, CellState.ALIVE);
+
+
+        assertEquals(CellState.ALIVE, board.getCellState(0, 0));
+        assertEquals(CellState.ALIVE, board.getCellState(1, 1));
+        assertEquals(CellState.ALIVE, board.getCellState(2, 2));
+        assertEquals(CellState.ALIVE, board.getCellState(3, 3));
 
 
     }
