@@ -2,8 +2,23 @@ package org.example.model;
 
 public class Rules {
 
+    public int countAliveNeighbours(int x, int y, Board board) {
+        int count = 0;
+        count = count +
+                stateOfCellAbove(x, y, board) +
+                stateOfCellBelow(x, y, board) +
+                stateOfCellRight(x, y, board) +
+                stateOfCellLeft(x, y, board) +
+                stateOfCellUpRight(x, y, board) +
+                stateOfCellUpLeft(x, y, board) +
+                stateOfCellDownRight(x, y, board) +
+                stateOfCellDownLeft(x, y, board);
 
-    public static int getStateOfCellAbove(int x, int y, Board board) {
+
+        return count;
+    }
+
+    public int stateOfCellAbove(int x, int y, Board board) {
         if (board.getCellState(x, y + 1) == CellState.ALIVE) {
             return 1;
         } else {
@@ -12,7 +27,7 @@ public class Rules {
         }
     }
 
-    public static int getStateOfCellBelow(int x, int y, Board board) {
+    public int stateOfCellBelow(int x, int y, Board board) {
         if (board.getCellState(x, y - 1) == CellState.ALIVE) {
             return 1;
         } else {
@@ -21,16 +36,8 @@ public class Rules {
         }
     }
 
-    public static int getStateOfCellRight(int x, int y, Board board) {
-        if (board.getCellState(x+1, y ) == CellState.ALIVE) {
-            return 1;
-        } else {
-            return 0;
-
-        }
-    }
-    public static int getStateOfCellLeft(int x, int y, Board board) {
-        if (board.getCellState(x-1, y ) == CellState.ALIVE) {
+    public int stateOfCellRight(int x, int y, Board board) {
+        if (board.getCellState(x + 1, y) == CellState.ALIVE) {
             return 1;
         } else {
             return 0;
@@ -38,9 +45,8 @@ public class Rules {
         }
     }
 
-
-    public static int getStateOfCellUpRight(int x, int y, Board board) {
-        if (board.getCellState(x+1, y+1 ) == CellState.ALIVE) {
+    public int stateOfCellLeft(int x, int y, Board board) {
+        if (board.getCellState(x - 1, y) == CellState.ALIVE) {
             return 1;
         } else {
             return 0;
@@ -48,8 +54,9 @@ public class Rules {
         }
     }
 
-    public static int getStateOfCellDownRight(int x, int y, Board board) {
-        if (board.getCellState(x+1, y-1 ) == CellState.ALIVE) {
+
+    public int stateOfCellUpRight(int x, int y, Board board) {
+        if (board.getCellState(x + 1, y + 1) == CellState.ALIVE) {
             return 1;
         } else {
             return 0;
@@ -57,8 +64,8 @@ public class Rules {
         }
     }
 
-    public static int getStateOfCellUpLeft(int x, int y, Board board) {
-        if (board.getCellState(x-1, y+1 ) == CellState.ALIVE) {
+    public int stateOfCellDownRight(int x, int y, Board board) {
+        if (board.getCellState(x + 1, y - 1) == CellState.ALIVE) {
             return 1;
         } else {
             return 0;
@@ -66,12 +73,23 @@ public class Rules {
         }
     }
 
-    public static int getStateOfCellDownLeft(int x, int y, Board board) {
-        if (board.getCellState(x-1, y-1 ) == CellState.ALIVE) {
+    public int stateOfCellUpLeft(int x, int y, Board board) {
+        if (board.getCellState(x - 1, y + 1) == CellState.ALIVE) {
             return 1;
         } else {
             return 0;
 
         }
     }
+
+    public int stateOfCellDownLeft(int x, int y, Board board) {
+        if (board.getCellState(x - 1, y - 1) == CellState.ALIVE) {
+            return 1;
+        } else {
+            return 0;
+
+        }
+    }
+
+
 }
