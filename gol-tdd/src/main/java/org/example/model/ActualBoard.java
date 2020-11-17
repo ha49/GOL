@@ -61,12 +61,12 @@ public class ActualBoard implements Board {
 //When cell's position is out board it will be regarded as DEAD
     @Override
     public void setCellState(int x, int y, CellState cellState) {
-        if (x<0 || x>this.width){
+        if (x<0 || x>=this.width){
             return;
         }
 
 
-        if (y<0 || y>this.height){
+        if (y<0 || y>=this.height){
             return;
         }
             this.initialState[x][y]=cellState;
