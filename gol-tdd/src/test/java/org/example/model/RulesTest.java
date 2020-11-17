@@ -204,7 +204,96 @@ class RulesTest {
         board.setCellState(1,1, CellState.ALIVE);
         assertEquals(3, rules.countAliveNeighbours(0,0, board));
 
+    }
+
+
+    @Test
+    void aliveCellWithLessThanTwoAliveNeighbourDies(){
+
+        //The alive cell
+        board.setCellState(1,1, CellState.ALIVE);
+
+        //  No alive neighbour
+        assertEquals(CellState.DEAD, rules.nextGenerationCellState(1,1,board));
+
+        // One alive neighbour
+        board.setCellState(0,0, CellState.ALIVE);
+        assertEquals(CellState.DEAD, rules.nextGenerationCellState(1,1,board));
 
     }
+
+
+    @Test
+    void aliveCellWithTwoOrThreeAliveNeighboursLives(){
+        //The alive cell
+        board.setCellState(1,1, CellState.ALIVE);
+
+        // Two alive neighbours
+        board.setCellState(0,0, CellState.ALIVE);
+        board.setCellState(0,1, CellState.ALIVE);
+
+        assertEquals(CellState.ALIVE, rules.nextGenerationCellState(1,1,board));
+
+
+        // Three alive neighbours
+        board.setCellState(1,0, CellState.ALIVE);
+
+        assertEquals(CellState.ALIVE, rules.nextGenerationCellState(1,1,board));
+
+    }
+
+
+
+
+
+    @Test
+    void aliveCellWithMoreThanThreeAliveNeighboursDies(){
+
+        //The alive cell
+        board.setCellState(1,1, CellState.ALIVE);
+
+        // Four alive neighbours
+        board.setCellState(0,0, CellState.ALIVE);
+        board.setCellState(1,0, CellState.ALIVE);
+        board.setCellState(2,0, CellState.ALIVE);
+        board.setCellState(0,1, CellState.ALIVE);
+
+        assertEquals(CellState.DEAD, rules.nextGenerationCellState(1,1,board));
+
+        // Five alive neighbours
+        board.setCellState(0,2, CellState.ALIVE);
+        assertEquals(CellState.DEAD, rules.nextGenerationCellState(1,1,board));
+
+        // Six alive neighbours
+        board.setCellState(1,2, CellState.ALIVE);
+        assertEquals(CellState.DEAD, rules.nextGenerationCellState(1,1,board));
+
+        // Seven alive neighbours
+        board.setCellState(2,2, CellState.ALIVE);
+        assertEquals(CellState.DEAD, rules.nextGenerationCellState(1,1,board));
+
+        // Eight alive neighbours
+        board.setCellState(2,1, CellState.ALIVE);
+        assertEquals(CellState.DEAD, rules.nextGenerationCellState(1,1,board));
+
+    }
+
+    @Test
+    void deadCellWithMThreeAliveNeighboursLives(){
+
+        // Three alive neighbours
+        board.setCellState(0,0, CellState.ALIVE);
+        board.setCellState(1,0, CellState.ALIVE);
+        board.setCellState(2,0, CellState.ALIVE);
+
+        //The dead cell Lives
+        assertEquals(CellState.ALIVE, rules.nextGenerationCellState(1,1,board));
+
+    }
+
+
+
+
+
 
 }

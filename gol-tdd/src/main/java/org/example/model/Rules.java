@@ -92,4 +92,26 @@ public class Rules {
     }
 
 
+    public CellState nextGenerationCellState(int x, int y, Board board) {
+
+        int aliveNeighbours = countAliveNeighbours(x, y, board);
+
+        if (board.getCellState(x,y)==CellState.ALIVE){
+
+            if(aliveNeighbours<2){
+                return CellState.DEAD;
+            } else if (aliveNeighbours==2 || aliveNeighbours==3){
+                return CellState.ALIVE;
+
+            }else {
+                return CellState.DEAD;
+            }
+
+        } else if (aliveNeighbours==3){
+            return CellState.ALIVE;
+        } else {
+            return CellState.DEAD;
+        }
+
+    }
 }
