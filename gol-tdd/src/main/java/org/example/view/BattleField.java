@@ -11,7 +11,8 @@ public class BattleField extends VBox {
     private Board defaultBoard;
     private Canvas canvas;
     private Affine affine;
-
+    private final int width=20;
+    private final int height=20;
 
 
     public BattleField() {
@@ -23,7 +24,7 @@ public class BattleField extends VBox {
 
         this.affine = new Affine();
         this.affine.appendScale(600 / 20d, 600 / 20d);
-        this.defaultBoard = new ActualBoard(20, 20);
+        this.defaultBoard = new ActualBoard(width, height);
 
     }
 
@@ -36,6 +37,18 @@ public class BattleField extends VBox {
         g.fillRect(0, 0, 600, 600);
 
 
+        g.setStroke(Color.WHITE);
+        g.setLineWidth(0.05);
+
+        for (int x = 0; x <= this.defaultBoard.getWidth(); x++) {
+            g.strokeLine(x, 0, x, width);
+
+
+        }
+        for (int y = 0; y <= this.defaultBoard.getHeight(); y++) {
+            g.strokeLine(0, y, height, y);
+
+        }
     }
 
 
