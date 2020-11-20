@@ -2,25 +2,20 @@ package org.example;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.example.view.BattleField;
 
-
-/**
- * JavaFX App
- */
 public class App extends Application {
+
 
     @Override
     public void start(Stage stage) {
-        var javaVersion = SystemInfo.javaVersion();
-        var javafxVersion = SystemInfo.javafxVersion();
-
-        var label = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
-        var scene = new Scene(new StackPane(label), 640, 480);
+        BattleField battleField = new BattleField();
+        Scene scene = new Scene(battleField, 650, 650);
         stage.setScene(scene);
         stage.show();
+
+        battleField.draw();
     }
 
     public static void main(String[] args) {
