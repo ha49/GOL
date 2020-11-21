@@ -1,10 +1,15 @@
 package org.example.view;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
+import javafx.scene.transform.NonInvertibleTransformException;
 import org.example.model.*;
+
+import static org.example.model.Stage.SIMULATING;
 
 public class BattleField extends VBox {
 
@@ -13,19 +18,45 @@ public class BattleField extends VBox {
     private Affine affine;
     private final int width=20;
     private final int height=20;
+    private State mode=State.ALIVE;
+    private Stage applicationState = Stage.EDITING;
+
+    private Simulation simulation;
 
 
     public BattleField() {
 
-
         this.canvas = new Canvas(650, 650);
+        this.canvas.setOnMousePressed(this::handleDrawEvent);
+        this.canvas.setOnMouseDragged(this::handleDrawEvent);
+        Toolbar toolbar = new Toolbar(this);
+        this.getChildren().addAll(toolbar, this.canvas);
         this.affine = new Affine();
         this.affine.appendScale(600 / 20d, 600 / 20d);
         this.defaultBoard = new ActualBoard(width, height);
 
-        Toolbar toolbar = new Toolbar(this);
-        this.getChildren().addAll(toolbar, this.canvas);
     }
+
+    private void handleDrawEvent(MouseEvent mouseEvent) {
+        if(this.applicationState== SIMULATING){
+            return;
+        }
+        double pointX = mouseEvent.getX();
+        double pointY = mouseEvent.getY();
+
+
+        try {
+            Point2D coordinate = this.affine.inverseTransform(pointX, pointY);
+
+            int paintedX = (int) (coordinate.getX());
+            int paintedY = (int) (coordinate.getY());
+
+            this.defaultBoard.setCellState(paintedX, paintedY, State.ALIVE);
+            draw();
+
+        } catch (NonInvertibleTransformException e) {
+        }
+   }
 
 
     public void draw() {
@@ -34,6 +65,12 @@ public class BattleField extends VBox {
 
         g.setFill(Color.DARKGRAY);
         g.fillRect(0, 0, 600, 600);
+
+        if (this.applicationState == Stage.EDITING) {
+            drawSimulation(this.defaultBoard);
+        } else {
+            drawSimulation(this.simulation.getSimulationBoard());
+        }
 
 
         g.setStroke(Color.WHITE);
@@ -51,6 +88,64 @@ public class BattleField extends VBox {
 
 
 
+    public void deleteMode(State mode) {
+        this.mode=mode;
+    }
+
+    public void setSimulation(Simulation simulation) {
+        this.simulation = simulation;
+    }
+
+    public Simulation getSimulation() {
+        return this.simulation;
+    }
+
+    private void drawSimulation(Board simulationBoard) {
+        GraphicsContext g = this.canvas.getGraphicsContext2D();
+
+        g.setFill(Color.DARKRED);
+
+        for (int x = 0; x < simulationBoard.getWidth(); x++) {
+            for (int y = 0; y < simulationBoard.getHeight(); y++) {
+
+                if (simulationBoard.getCellState(x, y) == State.ALIVE) {
+                    //                    g.fillRect(x*10, y*10, 5, 5);
+                    g.fillRect(x, y, 1, 1);
+
+                }
+            }
+        }
+    }
+
+    public void setApplicationState(Stage applicationState) {
+        if (applicationState == this.applicationState) {
+            System.out.println("application state is Editing");
+            return;
+        }
+
+        if (applicationState == SIMULATING) {
+            System.out.println("applicationState is SIMULATING");
+            this.simulation = new Simulation(this.defaultBoard, new Rules());
+
+        }
+        this.applicationState = applicationState;
+
+        System.out.println("application new state is"+ this.applicationState);
+
+    }
+    public Stage getApplicationState() {
+        return applicationState;
+    }
+
+    public void setDrawMode(State mode) {
+        this.mode=State.ALIVE;
+    }
 
 
+    public void setDeleteMode(State dead) {
+    }
+
+    public State getDrawMode() {
+ return this.mode;
+    }
 }
