@@ -7,8 +7,8 @@ public interface Board {
 
     ActualBoard createBoard();
 
-    CellState getCellState(int x, int y);
+    State getState(int x, int y);
 
-    void setCellState(int x, int y, CellState cellState);
+    void setState(int x, int y, State state);
 }
 

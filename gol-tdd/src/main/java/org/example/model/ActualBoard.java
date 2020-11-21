@@ -12,12 +12,10 @@ public class ActualBoard implements Board {
         this.initialState = new State[width][height];
         for (int x = 0; x < this.width; x++) {
             for (int y = 0; y < this.height; y++) {
-                setCellState(x, y, State.DEAD);
+                setState(x, y, State.DEAD);
 
             }
-
         }
-
     }
 
     @Override
@@ -36,7 +34,7 @@ public class ActualBoard implements Board {
 
         for (int y = 0; y < this.height; y++) {
             for (int x = 0; x < this.width; x++) {
-                copy.setCellState(x, y, this.getCellState(x, y));
+                copy.setState(x, y, this.getState(x, y));
             }
         }
 
@@ -44,7 +42,7 @@ public class ActualBoard implements Board {
     }
 
     @Override
-    public State getCellState(int x, int y) {
+    public State getState(int x, int y) {
         if (x < 0 || x >= this.width) {
             return State.DEAD;
         }
@@ -56,24 +54,16 @@ public class ActualBoard implements Board {
         return this.initialState[x][y];
     }
 
-
     //When cell's position is out board it will be regarded as DEAD
     @Override
-    public void setCellState(int x, int y, State state) {
+    public void setState(int x, int y, State state) {
         if (x < 0 || x >= this.width) {
             return;
         }
-
 
         if (y < 0 || y >= this.height) {
             return;
         }
         this.initialState[x][y] = state;
-
-
     }
-
-
-
-
 }

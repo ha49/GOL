@@ -33,7 +33,7 @@ class ActualBoardTest {
 
         for (int x = 0; x < board.getWidth(); x++) {
             for (int y = 0; y < board.getHeight(); y++) {
-                assertEquals(State.DEAD, board.getCellState(x, y));
+                assertEquals(State.DEAD, board.getState(x, y));
 
             }
 
@@ -55,16 +55,16 @@ class ActualBoardTest {
     void UserInitiatedCellStatesShouldBeReflectedOnBoard() {
 
 
-        board.setCellState(0, 0, State.ALIVE);
-        board.setCellState(1, 1, State.ALIVE);
-        board.setCellState(2, 2, State.ALIVE);
-        board.setCellState(3, 3, State.ALIVE);
+        board.setState(0, 0, State.ALIVE);
+        board.setState(1, 1, State.ALIVE);
+        board.setState(2, 2, State.ALIVE);
+        board.setState(3, 3, State.ALIVE);
 
 
-        assertEquals(State.ALIVE, board.getCellState(0, 0));
-        assertEquals(State.ALIVE, board.getCellState(1, 1));
-        assertEquals(State.ALIVE, board.getCellState(2, 2));
-        assertEquals(State.ALIVE, board.getCellState(3, 3));
+        assertEquals(State.ALIVE, board.getState(0, 0));
+        assertEquals(State.ALIVE, board.getState(1, 1));
+        assertEquals(State.ALIVE, board.getState(2, 2));
+        assertEquals(State.ALIVE, board.getState(3, 3));
 
 
     }
@@ -74,26 +74,26 @@ class ActualBoardTest {
 
         Board newBoard = board.createBoard();
 
-        newBoard.setCellState(0, 0, State.ALIVE);
-        newBoard.setCellState(1, 1, State.ALIVE);
-        newBoard.setCellState(2, 2, State.ALIVE);
-        newBoard.setCellState(3, 3, State.ALIVE);
+        newBoard.setState(0, 0, State.ALIVE);
+        newBoard.setState(1, 1, State.ALIVE);
+        newBoard.setState(2, 2, State.ALIVE);
+        newBoard.setState(3, 3, State.ALIVE);
         for (int x = 0; x < board.getWidth(); x++) {
             for (int y = 0; y < board.getHeight(); y++) {
-                assertEquals(State.DEAD, board.getCellState(x, y));
-                System.out.println("x:" + x + ",y:" + y + " -> " + board.getCellState(x, y));
+                assertEquals(State.DEAD, board.getState(x, y));
+                System.out.println("x:" + x + ",y:" + y + " -> " + board.getState(x, y));
             }
         }
     }
 
     @Test
     void WhenPointsOutOfBoundsConstructedNoExceptionThrown() {
-        assertDoesNotThrow(() -> board.setCellState(21, 31, State.ALIVE));
-        assertDoesNotThrow(() -> board.setCellState(21, 31, State.DEAD));
-        assertDoesNotThrow(() -> board.setCellState(-1, -1, State.ALIVE));
-        assertDoesNotThrow(() -> board.setCellState(-1, -1, State.DEAD));
-        assertDoesNotThrow(() -> board.getCellState(21, 31));
-        assertDoesNotThrow(() -> board.getCellState(-1, -1));
+        assertDoesNotThrow(() -> board.setState(21, 31, State.ALIVE));
+        assertDoesNotThrow(() -> board.setState(21, 31, State.DEAD));
+        assertDoesNotThrow(() -> board.setState(-1, -1, State.ALIVE));
+        assertDoesNotThrow(() -> board.setState(-1, -1, State.DEAD));
+        assertDoesNotThrow(() -> board.getState(21, 31));
+        assertDoesNotThrow(() -> board.getState(-1, -1));
     }
 
     @Test
@@ -101,14 +101,14 @@ class ActualBoardTest {
         Board newBoard = board.createBoard();
         for (int x = -1; newBoard.getWidth() < x && x < newBoard.getWidth() + 2; x++) {
             for (int y = -1; newBoard.getHeight() < y && y < newBoard.getHeight() + 2; y++) {
-                newBoard.setCellState(x, y, State.ALIVE);
+                newBoard.setState(x, y, State.ALIVE);
             }
         }
 
         for (int x = -1; newBoard.getWidth() < x && x < newBoard.getWidth() + 2; x++) {
             for (int y = -1; newBoard.getHeight() < y && y < newBoard.getHeight() + 2; y++) {
 
-                assertEquals(State.DEAD, newBoard.getCellState(x, y));
+                assertEquals(State.DEAD, newBoard.getState(x, y));
             }
         }
     }
