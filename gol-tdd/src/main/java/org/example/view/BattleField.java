@@ -18,7 +18,7 @@ public class BattleField extends VBox {
     private Affine affine;
     private final int width=20;
     private final int height=20;
-    private State mode=State.ALIVE;
+    private State state =State.ALIVE;
     private Stage applicationState = Stage.EDITING;
 
     private Simulation simulation;
@@ -51,7 +51,7 @@ public class BattleField extends VBox {
             int paintedX = (int) (coordinate.getX());
             int paintedY = (int) (coordinate.getY());
 
-            this.defaultBoard.setCellState(paintedX, paintedY, State.ALIVE);
+            this.defaultBoard.setState(paintedX, paintedY, state);
             draw();
 
         } catch (NonInvertibleTransformException e) {
@@ -86,20 +86,6 @@ public class BattleField extends VBox {
         }
     }
 
-
-
-    public void deleteMode(State mode) {
-        this.mode=mode;
-    }
-
-    public void setSimulation(Simulation simulation) {
-        this.simulation = simulation;
-    }
-
-    public Simulation getSimulation() {
-        return this.simulation;
-    }
-
     private void drawSimulation(Board simulationBoard) {
         GraphicsContext g = this.canvas.getGraphicsContext2D();
 
@@ -108,8 +94,8 @@ public class BattleField extends VBox {
         for (int x = 0; x < simulationBoard.getWidth(); x++) {
             for (int y = 0; y < simulationBoard.getHeight(); y++) {
 
-                if (simulationBoard.getCellState(x, y) == State.ALIVE) {
-                    //                    g.fillRect(x*10, y*10, 5, 5);
+                if (simulationBoard.getState(x, y) == State.ALIVE) {
+
                     g.fillRect(x, y, 1, 1);
 
                 }
@@ -117,35 +103,14 @@ public class BattleField extends VBox {
         }
     }
 
-    public void setApplicationState(Stage applicationState) {
-        if (applicationState == this.applicationState) {
-            System.out.println("application state is Editing");
-            return;
-        }
 
-        if (applicationState == SIMULATING) {
-            System.out.println("applicationState is SIMULATING");
-            this.simulation = new Simulation(this.defaultBoard, new Rules());
-
-        }
-        this.applicationState = applicationState;
-
-        System.out.println("application new state is"+ this.applicationState);
-
-    }
-    public Stage getApplicationState() {
-        return applicationState;
-    }
-
-    public void setDrawMode(State mode) {
-        this.mode=State.ALIVE;
+    public void makeCellAlive(State state) {
+        this.state =state;
     }
 
 
-    public void setDeleteMode(State dead) {
+    public void makeCellDead(State state) {
+        this.state =state;
     }
 
-    public State getDrawMode() {
- return this.mode;
-    }
 }
