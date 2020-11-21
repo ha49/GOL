@@ -1,4 +1,5 @@
 package org.example.view;
+
 import org.example.model.Board;
 import org.example.model.State;
 import org.example.model.Rules;
@@ -28,9 +29,6 @@ public class Simulation {
     public Board getSimulationBoard() {
         return this.simulationBoard;
     }
-
-
-
 
 
 }

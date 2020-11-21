@@ -1,4 +1,5 @@
 package org.example.view;
+
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,10 +17,10 @@ public class BattleField extends VBox {
     private Board defaultBoard;
     private Canvas canvas;
     private Affine affine;
-    private final int width=20;
-    private final int height=20;
-    private State state =State.ALIVE;
-    private Stage applicationState = Stage.EDITING;
+    private final int width = 20;
+    private final int height = 20;
+    private State state = State.ALIVE;
+    private Stage stage = Stage.EDITING;
 
     private Simulation simulation;
 
@@ -38,7 +39,7 @@ public class BattleField extends VBox {
     }
 
     private void handleDrawEvent(MouseEvent mouseEvent) {
-        if(this.applicationState== SIMULATING){
+        if (this.stage == SIMULATING) {
             return;
         }
         double pointX = mouseEvent.getX();
@@ -56,7 +57,7 @@ public class BattleField extends VBox {
 
         } catch (NonInvertibleTransformException e) {
         }
-   }
+    }
 
 
     public void draw() {
@@ -66,7 +67,7 @@ public class BattleField extends VBox {
         g.setFill(Color.DARKGRAY);
         g.fillRect(0, 0, 600, 600);
 
-        if (this.applicationState == Stage.EDITING) {
+        if (this.stage == Stage.EDITING) {
             drawSimulation(this.defaultBoard);
         } else {
             drawSimulation(this.simulation.getSimulationBoard());
@@ -86,6 +87,14 @@ public class BattleField extends VBox {
         }
     }
 
+    public void setSimulation(Simulation simulation) {
+        this.simulation = simulation;
+    }
+
+    public Simulation getSimulation() {
+        return this.simulation;
+    }
+
     private void drawSimulation(Board simulationBoard) {
         GraphicsContext g = this.canvas.getGraphicsContext2D();
 
@@ -103,14 +112,33 @@ public class BattleField extends VBox {
         }
     }
 
+    public void setStage(Stage stage) {
+        if (stage == this.stage) {
+
+            return;
+        }
+
+        if (stage == SIMULATING) {
+
+            this.simulation = new Simulation(this.defaultBoard, new Rules());
+
+        }
+        this.stage = stage;
+
+
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
 
     public void makeCellAlive(State state) {
-        this.state =state;
+        this.state = state;
     }
 
 
     public void makeCellDead(State state) {
-        this.state =state;
+        this.state = state;
     }
 
 }
