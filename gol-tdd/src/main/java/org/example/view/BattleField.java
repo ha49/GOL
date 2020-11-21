@@ -18,14 +18,13 @@ public class BattleField extends VBox {
     public BattleField() {
 
 
-        this.canvas = new Canvas(800, 800);
-
-        this.getChildren().addAll(this.canvas);
-
+        this.canvas = new Canvas(650, 650);
         this.affine = new Affine();
         this.affine.appendScale(600 / 20d, 600 / 20d);
         this.defaultBoard = new ActualBoard(width, height);
 
+        Toolbar toolbar = new Toolbar(this);
+        this.getChildren().addAll(toolbar, this.canvas);
     }
 
 
@@ -42,7 +41,6 @@ public class BattleField extends VBox {
 
         for (int x = 0; x <= this.defaultBoard.getWidth(); x++) {
             g.strokeLine(x, 0, x, width);
-
 
         }
         for (int y = 0; y <= this.defaultBoard.getHeight(); y++) {
