@@ -34,7 +34,7 @@ public class BattleField extends VBox {
         this.getChildren().addAll(toolbar, this.canvas);
         this.affine = new Affine();
         this.affine.appendScale(600 / 20d, 600 / 20d);
-        this.defaultBoard = new ActualBoard(width, height);
+        this.defaultBoard = new RealBoard(width, height);
 
     }
 

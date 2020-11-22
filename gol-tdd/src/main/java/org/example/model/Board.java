@@ -5,7 +5,7 @@ public interface Board {
 
     int getWidth();
 
-    ActualBoard createBoard();
+    RealBoard createBoard();
 
     State getState(int x, int y);
 

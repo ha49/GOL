@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ActualBoardTest {
+class RealBoardTest {
 
     //    #Create Board
 
@@ -14,7 +14,7 @@ class ActualBoardTest {
 
     @BeforeEach
     void setUp() {
-        this.board = new ActualBoard(20, 30);
+        this.board = new RealBoard(20, 30);
 
     }
 

@@ -13,7 +13,7 @@ class RulesTest {
 
     @BeforeEach
     void setUp() {
-        this.board = new ActualBoard(20, 30);
+        this.board = new RealBoard(20, 30);
         this.rules=new Rules();
 
     }

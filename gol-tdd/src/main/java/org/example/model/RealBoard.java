@@ -1,12 +1,12 @@
 package org.example.model;
 
-public class ActualBoard implements Board {
+public class RealBoard implements Board {
 
     private final int width;
     private final int height;
     private final State[][] initialState;
 
-    public ActualBoard(int width, int height) {
+    public RealBoard(int width, int height) {
         this.width = width;
         this.height = height;
         this.initialState = new State[width][height];
@@ -29,8 +29,8 @@ public class ActualBoard implements Board {
     }
 
     @Override
-    public ActualBoard createBoard() {
-        ActualBoard copy = new ActualBoard(this.width, this.height);
+    public RealBoard createBoard() {
+        RealBoard copy = new RealBoard(this.width, this.height);
 
         for (int y = 0; y < this.height; y++) {
             for (int x = 0; x < this.width; x++) {
