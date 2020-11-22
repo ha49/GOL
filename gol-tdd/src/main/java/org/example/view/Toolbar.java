@@ -25,18 +25,21 @@ public class Toolbar extends ToolBar {
         
         Button play = new Button("Play");
         play.setOnAction(this::handlePlay);       
-//
+
         Button pause = new Button("Pause");
         pause.setOnAction(this::handlePause);
+
 
         this.getItems().addAll(draw, delete, play, pause);
         this.timeline = new Timeline(new KeyFrame(Duration.millis(1000), this::handlePlay));
         this.timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
+
+
     private void handlePause(ActionEvent actionEvent) {
         this.timeline.stop();
-        this.battleField.setStage(Stage.EDITING);
+
     }
 
     private void handlePlay(ActionEvent actionEvent) {

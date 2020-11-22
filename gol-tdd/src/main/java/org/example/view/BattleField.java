@@ -87,9 +87,7 @@ public class BattleField extends VBox {
         }
     }
 
-    public void setSimulation(Simulation simulation) {
-        this.simulation = simulation;
-    }
+
 
     public Simulation getSimulation() {
         return this.simulation;

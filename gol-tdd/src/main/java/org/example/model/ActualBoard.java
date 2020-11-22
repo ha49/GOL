@@ -2,9 +2,9 @@ package org.example.model;
 
 public class ActualBoard implements Board {
 
-    private int width;
-    private int height;
-    private State[][] initialState;
+    private final int width;
+    private final int height;
+    private final State[][] initialState;
 
     public ActualBoard(int width, int height) {
         this.width = width;

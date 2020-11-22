@@ -6,6 +6,7 @@ import org.example.model.Rules;
 
 public class Simulation {
     private Board simulationBoard;
+
     private Rules rules;
 
     public Simulation(Board simulationBoard, Rules rules) {
